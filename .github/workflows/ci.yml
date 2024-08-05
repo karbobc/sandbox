@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    tags: [ "v*" ]
+    branches: [ "master" ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Create file
+        run: |
+          tee update.json <<EOF
+            {
+              "key": "value"
+            }
+          EOF
+          < update.json
