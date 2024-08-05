@@ -7,6 +7,9 @@ on:
     branches: [ "master" ]
   workflow_dispatch:
 
+env:
+  ARCH: arm64-v8a
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -17,8 +20,9 @@ jobs:
       - name: Create file
         run: |
           tee update.json <<EOF
-            {
-              "key": "value"
-            }
+          {
+            "key": "value",
+            "arch": "${{ env.ARCH }}"
+          }
           EOF
           < update.json
