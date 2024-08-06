@@ -7,6 +7,9 @@ on:
     branches: [ "master" ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 env:
   ARCH: arm64-v8a
 
@@ -19,10 +22,43 @@ jobs:
 
       - name: Create file
         run: |
-          tee update.json <<EOF
+          mkdir -p build
+          sleep 10
+          tee build/update.json <<EOF
           {
             "key": "value",
             "arch": "${{ env.ARCH }}"
           }
           EOF
-          < update.json
+          < build/update.json
+
+      - name: Upload to GitHub release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            build/
+          prerelease: ${{ contains(github.ref, 'alpha') || contains(github.ref, 'beta') }}
+
+  changelog:
+    name: Changelog
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Build changelog
+        uses: mikepenz/release-changelog-builder-action@v5
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          outputFile: build/CHANGELOG.md
+
+      - name: Upload to GitHub release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            build/
+          prerelease: ${{ contains(github.ref, 'alpha') || contains(github.ref, 'beta') }}
+          body_path: build/CHANGELOG.md
+          commitMode: true
