@@ -55,7 +55,7 @@ jobs:
           commitMode: true
           configurationJson: |
             {
-              "template": "#{{CHANGELOG}}",
+              "template": "${{CHANGELOG}}",
               "categories": [
                 {
                   "title": "## What's Changed",
