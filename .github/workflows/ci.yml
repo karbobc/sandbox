@@ -53,6 +53,16 @@ jobs:
         with:
           outputFile: CHANGELOG.md
           commitMode: true
+          configurationJson: |
+            {
+              "template": "#{{CHANGELOG}}",
+              "categories": [
+                {
+                  "title": "What's Changed",
+                  "label": []
+                }
+              ]
+            }
 
       - name: Upload to GitHub release
         uses: softprops/action-gh-release@v2
@@ -62,3 +72,4 @@ jobs:
             CHANGELOG.md
           prerelease: ${{ contains(github.ref, 'alpha') || contains(github.ref, 'beta') }}
           body_path: CHANGELOG.md
+          generate_release_notes: true
