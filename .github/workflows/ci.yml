@@ -58,7 +58,7 @@ jobs:
               "template": "#{{CHANGELOG}}",
               "categories": [
                 {
-                  "title": "What's Changed",
+                  "title": "## What's Changed",
                   "label": []
                 }
               ]
