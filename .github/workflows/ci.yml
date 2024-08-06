@@ -52,6 +52,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           outputFile: build/CHANGELOG.md
+          commitMode: true
 
       - name: Upload to GitHub release
         uses: softprops/action-gh-release@v2
@@ -61,4 +62,3 @@ jobs:
             build/
           prerelease: ${{ contains(github.ref, 'alpha') || contains(github.ref, 'beta') }}
           body_path: build/CHANGELOG.md
-          commitMode: true
