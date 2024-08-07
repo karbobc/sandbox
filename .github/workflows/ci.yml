@@ -1,11 +1,11 @@
 name: CI
 
 on:
-  pull_request:
+  # pull_request:
   push:
     tags: [ "v*" ]
-    branches: [ "master" ]
-  workflow_dispatch:
+    # branches: [ "master" ]
+  # workflow_dispatch:
 
 permissions:
   contents: write
