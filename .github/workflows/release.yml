@@ -15,7 +15,8 @@ env:
 
 jobs:
   build:
-    uses: ./.github/workflows/build.yaml
+    name: Build
+    uses: ./.github/workflows/build.yml
 
   test:
     runs-on: ubuntu-latest
