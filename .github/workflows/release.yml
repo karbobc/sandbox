@@ -28,7 +28,7 @@ jobs:
       - name: Create file
         run: |
           mkdir -p build
-          # sleep 10
+          sleep 5
           tee build/update.json <<EOF
           {
             "key": "value",
@@ -52,6 +52,10 @@ jobs:
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
+
+      - name:
+        run: |
+          sleep 10
 
       - name: Build changelog
         uses: mikepenz/release-changelog-builder-action@v5
